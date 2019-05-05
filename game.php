@@ -1,4 +1,29 @@
 <?php
+session_start();
+$kiri = rand(1, 2);
+function bagi($n)
+{
+    $faktor = array();
+
+    for ($i = 1; $i <= $n; $i++) {
+        if ($n % $i == 0) {
+            array_push($faktor, $i);
+        }
+    }
+    $acak = rand(0, count($faktor) - 1);
+    $pembagi = $faktor[$acak];
+    $jumlah = $n / $pembagi;
+    echo $n . '/' . $pembagi . "<br>";
+    return $jumlah;
+}
+if (isset($_GET["benar"])) {
+    $_SESSION['score'] = $_SESSION['score'] + 10;
+    $_SESSION['count'] = $_SESSION['count'] + 1;
+}
+if (isset($_GET['salah'])) {
+    $_SESSION['hp'] = $_SESSION['hp'] - 1;
+    $_SESSION['count'] = $_SESSION['count'] + 1;
+}
 ?>
 
 <!DOCTYPE html>
@@ -7,7 +32,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Crazy Math</title>
+    <title>This or That</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="main.js"></script>
@@ -23,62 +48,94 @@
             float: left;
             /*background-color: whitesmoke;*/
         }
+
+        .jawab {
+            float: left;
+            width: 50%;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Game Tambah-tambahan</h1>
+    <h1>This or That : Math Edition</h1>
     <div class="kiri">
         <?php
-        session_start();
         $bil1 = rand(0, 100);
         $bil2 = rand(0, 100);
-        if (isset($_POST['maju']) == null) {
-            if ($_POST['jawab'] == $_SESSION['hasil']) {
-                $_SESSION['score'] = $_SESSION['score'] + 10;
-                echo "Benar !" . "<br>";
+        $rand = rand(0, 3);
+        // $rand = rand(0, 2);
+        $acak = rand(-10, 10);
+        if ($acak == 0) {
+            $acak = 1;
+        }
+        $answer = 0;
+        switch ($rand) {
+            case 0:
+                $answer = $bil1 + $bil2;
+                echo $bil1 . '+' . $bil2 . "<br>";
+                $penipu = $answer - $acak;
+                break;
+            case 1:
+                $answer = $bil1 - $bil2;
+                echo $bil1 . '-' . $bil2 . "<br>";
+                $penipu = $answer - $acak;
+                break;
+            case 2:
+                $answer = $bil1 * $bil2;
+                echo $bil1 . '*' . $bil2 . "<br>";
+                $penipu = $answer - $acak;
+                break;
+            case 3:
+                $answer = bagi($bil1);
+                $penipu = $answer - $acak;
+                break;
+            default:
+                # code...
+                break;
+        }
+        ?>
+        <div>
+            <div class="jawab" style="background-color:whitesmoke;">
+                <?php
+                if ($kiri == 1) {
+                    ?>
+                    <form method="get" action="game.php">
+                        <input type="submit" name="salah" value="<?php echo $penipu; ?>">
+                    </form>
+                <?php
             } else {
-                echo "Salah !" . "<br>";
-                $_SESSION['score'] = $_SESSION['score'] - 5;
-                $_SESSION['hp'] = $_SESSION['hp'] - 1;
+                ?>
+                    <form method="get" action="game.php">
+                        <input type="submit" name="benar" value="<?php echo $answer; ?>">
+                    </form>
+                <?php
             }
-        }
-        if ($_SESSION['hp'] > 0) {
-            echo "$bil1 + $bil2 = ?";
-            $_SESSION['hasil'] = $bil1 + $bil2;
-            echo '<form action="game.php" method="POST">';
-            echo '<input type="text" name="jawab" autofocus>';
-            echo '<input type="submit" name="submit" value="Cek !">';
-            echo "</form>";
-        } else {
-            echo "Sayang Sekali, " . $_COOKIE["user"] . ". Anda Kalah :(";
-            session_destroy();
-        }
-        ?>
+            ?>
+            </div>
+            <div class="jawab" style="background-color:tomato;">
+                <?php
+                if ($kiri == 1) {
+                    ?>
+                    <form method="get" action="game.php">
+                        <input type="submit" name="benar" value="<?php echo $answer; ?>">
+                    </form>
+                <?php
+            } else {
+                ?>
+                    <form method="get" action="game.php">
+                        <input type="submit" name="salah" value="<?php echo $penipu; ?>">
+                    </form>
+                <?php
+            }
+            ?>
+            </div>
+        </div>
     </div>
-    <div class="kanan">
-        <?php
-        echo "Nyawa anda : " . $_SESSION['hp'] . "<br>";
-        echo "Score anda : " . $_SESSION['score'] . "<br>";
-        ?>
-    </div>
-    <div>
-        <?php
-        if ($_SESSION['hp'] == 0) {
-            // Kode untuk masukin kukii
-            setcookie("score", $_SESSION['score'], time() + (86400 * 30));
-            setcookie('lasttime', date('d/m/Y H:i'), time() + 3600 * 24 * 30);
-            // kode untuk masukin ke databeeeees
-
-            require "config.php";
-            $db = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-            $query = "INSERT INTO leaderboard (username, score, tanggal, foto) 
-                    VALUES ('" . $_COOKIE['user'] . "','" . $_SESSION['score'] . "','" . date('Y-m-d H:i:s') . "','" . $_COOKIE['photo'] . "')";
-            $result = mysqli_query($db, $query);
-            echo "<a href = 'index.php'>Kembali Ke Awal</a>";
-        }
-        ?>
-    </div>
+    <?php
+    echo "Nyawa anda : " . $_SESSION['hp'] . "<br>";
+    echo "Score anda : " . $_SESSION['score'] . "<br>";
+    echo "level " . $_SESSION['count'] . "/ 10";
+    ?>
 </body>
 
-</html> 
+</html>

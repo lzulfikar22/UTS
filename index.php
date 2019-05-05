@@ -1,21 +1,3 @@
-<?php
-$kiri = rand(1, 2);
-function bagi($n){
-    $faktor = array();
-
-    for ($i=1; $i <= $n ; $i++) { 
-        if ($n % $i == 0) {
-            array_push($faktor,$i);
-        }
-    }
-    $acak = rand(0, count($faktor)-1);
-    $pembagi = $faktor[$acak];
-    $jumlah = $n / $pembagi;
-    echo $n . '/' . $pembagi . "<br>";
-    return $jumlah;
-}
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -27,82 +9,57 @@ function bagi($n){
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="main.js"></script>
     <style>
-        .kiri {
-            width: 70%;
-            float: left;
-            /*background-color: lightblue;*/
+        h1 {
+            text-align: center;
         }
 
-        .kanan {
-            width: 30%;
-            float: left;
-            /*background-color: whitesmoke;*/
+        .button {
+            width: 50px;
+            height: auto;
+            margin: auto auto;
+            text-align: center;
         }
 
-        .jawab {
-            float: left;
-            width: 50%;
+        p {
+            text-align: center;
+        }
+
+        .ptengah {
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <h1>This or That : Math Edition</h1>
-    <div class="kiri">
+    <h1>
+        This or That : Math Edition
+    </h1>
+    <?php
+    if (!isset($_COOKIE["user"])) { ?>
+        <p class="ptengah">Halo Master !, Nampaknya ini Permainan pertama anda, silahkan isi username anda !</p>
+        <form action="init.php" method="POST" class="ptengah" enctype="multipart/form-data">
+            <input type="text" name="nama" style="text-align:center;" /><br>
+            <!-- <input type="file" name="photo" id="photo"><br> -->
+            <input type="submit" name="submit" style="margin-top: 10px; margin-bottom: 10px;" />
+        </form>
+    <?php
+} else {
+    echo '<p>Halo ' . $_COOKIE["user"] . '!</p>';
+    if (isset($_COOKIE['lasttime']) and isset($_COOKIE['score'])) {
+        echo "<p>Sebelumnya, terakhir kali Anda main game ini tanggal " . $_COOKIE['lasttime'] . " dengan score " . $_COOKIE['score'] . "</p>";
+    }
+    ?>
+        <form method="post" class="button" action="game.php">
+            <input type="submit" name="maju" value="start">
+        </form>
         <?php
         session_start();
-        $bil1 = rand(0, 100);
-        $bil2 = rand(0, 100);
-        $rand = rand(0, 3);
-        // $rand = rand(0, 2);
-        $acak = rand(-10, 10);
-        $answer = 0;
-        switch ($rand) {
-            case 0:
-                $answer = $bil1 + $bil2;
-                echo $bil1 . '+' . $bil2 . "<br>";
-                $penipu = $answer - $acak;
-                break;
-            case 1:
-                $answer = $bil1 - $bil2;
-                echo $bil1 . '-' . $bil2 . "<br>";
-                $penipu = $answer - $acak;
-                break;
-            case 2:
-                $answer = $bil1 * $bil2;
-                echo $bil1 . '*' . $bil2 . "<br>";
-                $penipu = $answer - $acak;
-                break;
-            case 3:
-                $answer = bagi($bil1);
-                $penipu = $answer - $acak;
-                break;
-            default:
-                # code...
-                break;
-        }
-        ?>
-        <div>
-            <div class="jawab" style="background-color:whitesmoke;">
-                <?php
-                if ($kiri == 1) {
-                    echo $penipu;
-                } else {
-                    echo $answer;
-                }
-                ?>
-            </div>
-            <div class="jawab" style="background-color:tomato;">
-                <?php
-                if ($kiri == 1) {
-                    echo $answer;
-                } else {
-                    echo $penipu;
-                }
-                ?>
-            </div>
-        </div>
-    </div>
+        $_SESSION['score'] = 0;
+        $_SESSION['hp'] = 5;
+        $_SESSION['count'] = 1;
+        echo '<p>Bukan ' . $_COOKIE["user"] . '? <br/>Klik <a href="hapus.php">disini</a></p>';
+    }
+    ?>
 </body>
 
 </html>
