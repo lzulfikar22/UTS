@@ -60,18 +60,18 @@ if (isset($_GET['salah'])) {
     <h1>This or That : Math Edition</h1>
     <div class="kiri">
         <?php
-        $bil1 = rand(0, 100);
-        $bil2 = rand(0, 100);
-        $bil3 = rand(0, 1000);
-        $bil4 = rand(0, 1000);
-        $level1 = rand(0, 1);
-        $level2 = rand(0, 3);
-        $acak = rand(-10, 10);
-        if ($acak == 0) {
+        $bil1 = rand(0, 100); // Untuk level 1-2
+        $bil2 = rand(0, 100); // Untuk level 1-2
+        $bil3 = rand(0, 1000); // Untuk Level 3
+        $bil4 = rand(0, 1000); // Untuk level 3
+        $level1 = rand(0, 1); // Untuk level 1-2
+        $level2 = rand(0, 3); // Untuk Level 3
+        $acak = rand(-10, 10); // Untuk pengacau
+        if ($acak == 0) { // Antisipasi pengurang / penambahnya 0
             $acak = 1;
         }
-        $answer = 0;
-        // Untuk menghitung Level
+        $answer = 0; // Jawaban asli
+        // Untuk Pemilihan Level
         if ($_SESSION['count'] < 11) { // Level 1
             switch ($level1) {
                 case 0:
@@ -126,7 +126,7 @@ if (isset($_GET['salah'])) {
                 default:
                     break;
             }
-        } else {
+        } else { // Ketika Kalah
             header("Location: index.php");
             exit;
         }
