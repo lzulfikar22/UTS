@@ -62,36 +62,73 @@ if (isset($_GET['salah'])) {
         <?php
         $bil1 = rand(0, 100);
         $bil2 = rand(0, 100);
-        $rand = rand(0, 3);
-        // $rand = rand(0, 2);
+        $bil3 = rand(0, 1000);
+        $bil4 = rand(0, 1000);
+        $level1 = rand(0, 1);
+        $level2 = rand(0, 3);
         $acak = rand(-10, 10);
         if ($acak == 0) {
             $acak = 1;
         }
         $answer = 0;
-        switch ($rand) {
-            case 0:
-                $answer = $bil1 + $bil2;
-                echo $bil1 . '+' . $bil2 . "<br>";
-                $penipu = $answer - $acak;
-                break;
-            case 1:
-                $answer = $bil1 - $bil2;
-                echo $bil1 . '-' . $bil2 . "<br>";
-                $penipu = $answer - $acak;
-                break;
-            case 2:
-                $answer = $bil1 * $bil2;
-                echo $bil1 . '*' . $bil2 . "<br>";
-                $penipu = $answer - $acak;
-                break;
-            case 3:
-                $answer = bagi($bil1);
-                $penipu = $answer - $acak;
-                break;
-            default:
-                # code...
-                break;
+        // Untuk menghitung Level
+        if ($_SESSION['count'] < 11) { // Level 1
+            switch ($level1) {
+                case 0:
+                    $answer = $bil1 + $bil2;
+                    echo $bil1 . '+' . $bil2 . "<br>";
+                    $penipu = $answer - $acak;
+                    break;
+                case 1:
+                    $answer = $bil1 - $bil2;
+                    echo $bil1 . '-' . $bil2 . "<br>";
+                    $penipu = $answer - $acak;
+                    break;
+                default:
+                    break;
+            }
+        } elseif ($_SESSION['score'] >= 70 and $_SESSION['count'] < 21) { // Level 2
+            switch ($level1) {
+                case 0:
+                    $answer = $bil3 + $bil4;
+                    echo $bil3 . '+' . $bil4 . "<br>";
+                    $penipu = $answer - $acak;
+                    break;
+                case 1:
+                    $answer = $bil3 - $bil4;
+                    echo $bil3 . '-' . $bil4 . "<br>";
+                    $penipu = $answer - $acak;
+                    break;
+                default:
+                    break;
+            }
+        } elseif ($_SESSION['score'] >= 150 and $_SESSION['count'] > 20) { // Level 3
+            switch ($level2) {
+                case 0:
+                    $answer = $bil3 + $bil4;
+                    echo $bil3 . '+' . $bil4 . "<br>";
+                    $penipu = $answer - $acak;
+                    break;
+                case 1:
+                    $answer = $bil3 - $bil4;
+                    echo $bil3 . '-' . $bil4 . "<br>";
+                    $penipu = $answer - $acak;
+                    break;
+                case 2:
+                    $answer = $bil1 * $bil2;
+                    echo $bil1 . '*' . $bil2 . "<br>";
+                    $penipu = $answer - $acak;
+                    break;
+                case 3:
+                    $answer = bagi($bil1);
+                    $penipu = $answer - $acak;
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            header("Location: index.php");
+            exit;
         }
         ?>
         <div>
