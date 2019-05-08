@@ -1,8 +1,7 @@
 <?php
 session_start();
-$kiri = rand(1, 2);
-function bagi($n)
-{
+$kiri = rand(1, 2); // menentukan jawaban benar di kiri atau kanan
+function bagi($n){ // fungsi buat pembagian
     $faktor = array();
 
     for ($i = 1; $i <= $n; $i++) {
@@ -132,7 +131,7 @@ if (isset($_GET['salah'])) {
         }
         ?>
         <div>
-            <div class="jawab" style="background-color:whitesmoke;">
+            <div class="jawab" style="background-color:whitesmoke;"> <!-- Pilihan jawaban -->
                 <?php
                 if ($kiri == 1) {
                     ?>
@@ -169,9 +168,14 @@ if (isset($_GET['salah'])) {
         </div>
     </div>
     <?php
-    echo "Nyawa anda : " . $_SESSION['hp'] . "<br>";
+    echo "Nyawa anda : " . $_SESSION['hp'] . "<br>"; // Nyawa, belum berfungsi || kemungkinan di hapus
     echo "Score anda : " . $_SESSION['score'] . "<br>";
-    echo "level " . $_SESSION['count'] . "/ 10";
+        if ($_SESSION['score'] <= 0 ){
+            header("Location: index.php");
+        exit;
+        }
+         // Score
+    echo "level " . $_SESSION['count'] . "/ 10"; // Soal ke- sekian
     ?>
 </body>
 

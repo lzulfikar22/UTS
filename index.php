@@ -44,13 +44,16 @@
         </form>
     <?php
 } else {
-    echo '<p>Halo ' . $_COOKIE["user"] . '!</p>';
+    echo '<p>Halo ' . $_COOKIE["user"] . '!</p>'; // Tombol untuk bermain
     if (isset($_COOKIE['lasttime']) and isset($_COOKIE['score'])) {
         echo "<p>Sebelumnya, terakhir kali Anda main game ini tanggal " . $_COOKIE['lasttime'] . " dengan score " . $_COOKIE['score'] . "</p>";
     }
     ?>
-        <form method="post" class="button" action="game.php">
-            <input type="submit" name="maju" value="start">
+        <form method="post" class="button" action="game.php"> <!-- Tombol untuk bermain-->
+            <input type="submit" name="maju" value="start">  
+        </form>
+        <form method="post" class="button" action="bermain.html"> <!-- Tombol untuk bermain-->
+            <input type="submit" name="maju" value="cara bermain">  
         </form>
         <?php
         session_start();
