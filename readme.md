@@ -1,6 +1,5 @@
 #UTS
 
-List to do : 
-- Nambah Scoring (Cache + Session)
+List to do :
 - Nambah Database
 - Nambah Design
