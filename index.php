@@ -1,3 +1,9 @@
+<?php
+session_start();
+$_SESSION['score'] = 0;
+$_SESSION['hp'] = 5;
+$_SESSION['count'] = 1;
+?>
 <!DOCTYPE html>
 <html>
 
@@ -49,17 +55,15 @@
         echo "<p>Sebelumnya, terakhir kali Anda main game ini tanggal " . $_COOKIE['lasttime'] . " dengan score " . $_COOKIE['score'] . "</p>";
     }
     ?>
-        <form method="post" class="button" action="game.php"> <!-- Tombol untuk bermain-->
-            <input type="submit" name="maju" value="start">  
+        <!-- Tombol untuk bermain-->
+        <form method="post" class="ptengah" action="game.php">
+            <input type="submit" name="maju" value="start">
         </form>
-        <form method="post" class="button" action="bermain.html"> <!-- Tombol untuk bermain-->
-            <input type="submit" name="maju" value="cara bermain">  
+        <!-- Tombol untuk cara bermain-->
+        <form method="post" class="ptengah" action="bermain.html">
+            <input type="submit" name="go" value="cara bermain">
         </form>
         <?php
-        session_start();
-        $_SESSION['score'] = 0;
-        $_SESSION['hp'] = 5;
-        $_SESSION['count'] = 1;
         echo '<p>Bukan ' . $_COOKIE["user"] . '? <br/>Klik <a href="hapus.php">disini</a></p>';
     }
     ?>
