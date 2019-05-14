@@ -16,20 +16,22 @@ function bagi($n)
     echo $n . '/' . $pembagi . "<br>";
     return $jumlah;
 }
-function input(){
+function input()
+{
     setcookie("score", $_SESSION['score'], time() + (86400 * 30));
-            setcookie('lasttime', date('d/m/Y H:i'), time() + 3600 * 24 * 30);
-            require "dbconfig.php";
-            $db = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-            $query = "INSERT INTO score (username, score, playtime, capaian) 
+    setcookie('lasttime', date('d/m/Y H:i'), time() + 3600 * 24 * 30);
+    require "dbconfig.php";
+    $db = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+    $_SESSION['soal'] = $_SESSION['soal'] - 1;
+    $query = "INSERT INTO score (username, score, playtime, capaian) 
                     VALUES ('" . $_COOKIE['user'] . "','" . $_SESSION['score'] . "','" . date('Y-m-d H:i:s') . "','" . $_SESSION['soal'] . "')";
-            $result = mysqli_query($db, $query);
+    $result = mysqli_query($db, $query);
 }
-if (isset($_GET["benar"])) {
+if (isset($_POST["benar"])) {
     $_SESSION['score'] = $_SESSION['score'] + 10;
     $_SESSION['soal'] = $_SESSION['soal'] + 1;
 }
-if (isset($_GET['salah'])) {
+if (isset($_POST['salah'])) {
     $_SESSION['hp'] = $_SESSION['hp'] - 1;
     $_SESSION['soal'] = $_SESSION['soal'] + 1;
 }
@@ -152,13 +154,13 @@ if ($_SESSION['hp'] == 0) {
                 <?php
                 if ($kiri == 1) {
                     ?>
-                    <form method="get" action="game.php">
+                    <form method="post" action="game.php">
                         <input type="submit" name="salah" value="<?php echo $penipu; ?>">
                     </form>
                 <?php
             } else {
                 ?>
-                    <form method="get" action="game.php">
+                    <form method="post" action="game.php">
                         <input type="submit" name="benar" value="<?php echo $answer; ?>">
                     </form>
                 <?php
@@ -169,13 +171,13 @@ if ($_SESSION['hp'] == 0) {
                 <?php
                 if ($kiri == 1) {
                     ?>
-                    <form method="get" action="game.php">
+                    <form method="post" action="game.php">
                         <input type="submit" name="benar" value="<?php echo $answer; ?>">
                     </form>
                 <?php
             } else {
                 ?>
-                    <form method="get" action="game.php">
+                    <form method="post" action="game.php">
                         <input type="submit" name="salah" value="<?php echo $penipu; ?>">
                     </form>
                 <?php
