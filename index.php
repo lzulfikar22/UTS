@@ -2,7 +2,7 @@
 session_start();
 $_SESSION['score'] = 0;
 $_SESSION['hp'] = 5;
-$_SESSION['count'] = 1;
+$_SESSION['soal'] = 1;
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,11 +57,17 @@ $_SESSION['count'] = 1;
     ?>
         <!-- Tombol untuk bermain-->
         <form method="post" class="ptengah" action="game.php">
-            <input type="submit" name="maju" value="start">
+            <input type="submit" name="maju" value="Start">
         </form>
         <!-- Tombol untuk cara bermain-->
         <form method="post" class="ptengah" action="bermain.html">
-            <input type="submit" name="go" value="cara bermain">
+            <input type="submit" name="go" value="About">
+        </form>
+        <form method="post" class="ptengah" action="petunjuk.html">
+            <input type="submit" name="go" value="Petunjuk permainan">
+        </form>
+        <form method="post" class="ptengah" action="rank.php">
+            <input type="submit" name="gas" value="Ranking">
         </form>
         <?php
         echo '<p>Bukan ' . $_COOKIE["user"] . '? <br/>Klik <a href="hapus.php">disini</a></p>';

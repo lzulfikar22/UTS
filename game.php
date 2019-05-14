@@ -16,15 +16,25 @@ function bagi($n)
     echo $n . '/' . $pembagi . "<br>";
     return $jumlah;
 }
+function input(){
+    setcookie("score", $_SESSION['score'], time() + (86400 * 30));
+            setcookie('lasttime', date('d/m/Y H:i'), time() + 3600 * 24 * 30);
+            require "dbconfig.php";
+            $db = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+            $query = "INSERT INTO score (username, score, playtime, capaian) 
+                    VALUES ('" . $_COOKIE['user'] . "','" . $_SESSION['score'] . "','" . date('Y-m-d H:i:s') . "','" . $_SESSION['soal'] . "')";
+            $result = mysqli_query($db, $query);
+}
 if (isset($_GET["benar"])) {
     $_SESSION['score'] = $_SESSION['score'] + 10;
-    $_SESSION['count'] = $_SESSION['count'] + 1;
+    $_SESSION['soal'] = $_SESSION['soal'] + 1;
 }
 if (isset($_GET['salah'])) {
     $_SESSION['hp'] = $_SESSION['hp'] - 1;
-    $_SESSION['count'] = $_SESSION['count'] + 1;
+    $_SESSION['soal'] = $_SESSION['soal'] + 1;
 }
 if ($_SESSION['hp'] == 0) {
+    input();
     header("Location: index.php");
     exit;
 }
@@ -76,7 +86,7 @@ if ($_SESSION['hp'] == 0) {
         }
         $answer = 0; // Jawaban asli
         // Untuk Pemilihan Level
-        if ($_SESSION['count'] < 11) { // Level 1
+        if ($_SESSION['soal'] < 11) { // Level 1
             switch ($level1) {
                 case 0:
                     $answer = $bil1 + $bil2;
@@ -91,7 +101,7 @@ if ($_SESSION['hp'] == 0) {
                 default:
                     break;
             }
-        } elseif ($_SESSION['score'] >= 70 and $_SESSION['count'] < 21) { // Level 2
+        } elseif ($_SESSION['score'] >= 70 and $_SESSION['soal'] < 21) { // Level 2
             switch ($level1) {
                 case 0:
                     $answer = $bil3 + $bil4;
@@ -106,7 +116,7 @@ if ($_SESSION['hp'] == 0) {
                 default:
                     break;
             }
-        } elseif ($_SESSION['score'] >= 150 and $_SESSION['count'] > 20) { // Level 3
+        } elseif ($_SESSION['score'] >= 150 and $_SESSION['soal'] > 20) { // Level 3
             switch ($level2) {
                 case 0:
                     $answer = $bil3 + $bil4;
@@ -131,6 +141,7 @@ if ($_SESSION['hp'] == 0) {
                     break;
             }
         } else { // Ketika Kalah
+            input();
             header("Location: index.php");
             exit;
         }
@@ -177,7 +188,7 @@ if ($_SESSION['hp'] == 0) {
     echo "Nyawa anda : " . $_SESSION['hp'] . "<br>"; // Nyawa, belum berfungsi || kemungkinan di hapus
     echo "Score anda : " . $_SESSION['score'] . "<br>";
     // Score
-    echo "level " . $_SESSION['count'] . "/ 10"; // Soal ke- sekian
+    echo "Soal Ke : " . $_SESSION['soal']; // Soal ke- sekian
     ?>
 </body>
 

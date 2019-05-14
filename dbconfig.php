@@ -2,7 +2,7 @@
 
 $dbhost ="localhost";
 $dbuser ="root";
-$dbpass = "";
-$dbname ="crazymath-uts";
+$dbpass ="6101400153";
+$dbname ="UTS";
 
 ?>
