@@ -1,0 +1,29 @@
+body {
+	font-size: 30px;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "sans-serif";
+	background: url("1.png");
+  	background-position: center;
+  	background-size: cover;
+	background-attachment: fixed;
+	
+}
+
+h1 {
+  	font-family: 'Gill Sans', 'Gill Sans MT', 'Myriad Pro', 'DejaVu Sans Condensed','sans-serif';
+	font-size: 100px;
+	font-style: oblique;
+	font-color:white;
+	background-color:rgba(0,68,195,1.00);
+}
+
+.ptengah {
+	background-color:rgba(147,64,152,1.00);
+	background-size: cover;
+	background-origin: content-box;
+	font-family: "Segoe", "Segoe UI", "DejaVu Sans", "Trebuchet MS", "Verdana", "sans-serif";
+}
+
+.submit {
+	box-sizing: border-box;
+	
+}

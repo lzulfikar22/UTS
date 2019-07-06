@@ -2,7 +2,7 @@
 
 $dbhost ="localhost";
 $dbuser ="root";
-$dbpass ="6101400153";
+$dbpass ="";
 $dbname ="UTS";
 
 ?>

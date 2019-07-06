@@ -2,11 +2,12 @@
 session_start();
 $_SESSION['score'] = 0;
 $_SESSION['hp'] = 5;
+$_SESSION['count'] = 1;
 $_SESSION['soal'] = 1;
 ?>
 <!DOCTYPE html>
 <html>
-
+<link rel="stylesheet" href="style.css" type="text/css">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,6 +18,7 @@ $_SESSION['soal'] = 1;
     <style>
         h1 {
             text-align: center;
+  	
         }
 
         .button {
@@ -36,10 +38,10 @@ $_SESSION['soal'] = 1;
     </style>
 </head>
 
+<h1>
+     This or That : Math Edition
+</h1>
 <body>
-    <h1>
-        This or That : Math Edition
-    </h1>
     <?php
     if (!isset($_COOKIE["user"])) { ?>
         <p class="ptengah">Halo Master !, Nampaknya ini Permainan pertama anda, silahkan isi username anda !</p>
