@@ -3,7 +3,6 @@ session_start();
 $_SESSION['score'] = 0;
 $_SESSION['hp'] = 5;
 $_SESSION['count'] = 1;
-$_SESSION['soal'] = 1;
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,6 +41,9 @@ $_SESSION['soal'] = 1;
      This or That : Math Edition
 </h1>
 <body>
+    <h1>
+        This or That : Math Edition
+    </h1>
     <?php
     if (!isset($_COOKIE["user"])) { ?>
         <p class="ptengah">Halo Master !, Nampaknya ini Permainan pertama anda, silahkan isi username anda !</p>
