@@ -37,10 +37,6 @@ $_SESSION['soal'] = 1;
         }
     </style>
 </head>
-
-<h1>
-     This or That : Math Edition
-</h1>
 <body>
     <h1>
         This or That : Math Edition
