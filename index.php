@@ -3,6 +3,7 @@ session_start();
 $_SESSION['score'] = 0;
 $_SESSION['hp'] = 5;
 $_SESSION['count'] = 1;
+$_SESSION['soal'] = 1;
 ?>
 <!DOCTYPE html>
 <html>
